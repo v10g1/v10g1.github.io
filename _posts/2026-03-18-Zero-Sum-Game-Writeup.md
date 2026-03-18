@@ -123,7 +123,7 @@ $$
 
 ---
 
-## Prover's Claim
+ Prover's Claim
 
 $$
 \sum_{i=0}^{n-1} f(\omega^i) = s
@@ -131,7 +131,7 @@ $$
 
 ---
 
-## Step 1 — Accumulator Polynomial
+ Step 1 — Accumulator Polynomial
 
 Define $g : H \to \mathbb{F}$ such that:
 
@@ -153,7 +153,7 @@ The prover interpolates $g(x)$ as a polynomial of degree $< n$.
 
 ---
 
-## Step 2 — Encode the Recurrence
+ Step 2 — Encode the Recurrence
 
 $$
 g(\omega x) - g(x) - f(x) = 0 \quad \forall x \in H
@@ -167,9 +167,9 @@ $$
 
 ---
 
-## Step 3 — Boundary Conditions
+Step 3 — Boundary Conditions
 
-### Initial condition
+ Initial condition
 
 $$
 g(\omega^0) - f(\omega^0) = 0
@@ -181,7 +181,7 @@ $$
 (g(x) - f(x)) \cdot L_0(x) = 0 \pmod{Z_H(x)}
 $$
 
-### Terminal condition
+Terminal condition
 
 $$
 g(\omega^{n-1}) - s = 0
@@ -195,7 +195,7 @@ $$
 
 ---
 
-## Lagrange Basis Polynomials
+Lagrange Basis Polynomials
 
 $$
 L_i(x) = \prod_{j \ne i} \frac{x - \omega^j}{\omega^i - \omega^j}
@@ -209,7 +209,7 @@ $$
 
 ---
 
-## Quotient Forms
+Quotient Forms
 
 There exist polynomials $q_2(x), q_3(x)$ such that:
 
@@ -223,7 +223,7 @@ $$
 
 ---
 
-## Step 4 — Random Linear Combination
+Step 4 — Random Linear Combination
 
 The verifier samples a random challenge $\alpha$.
 
@@ -246,7 +246,7 @@ $$
 
 ---
 
-## Step 5 — Evaluation at a Random Point
+Step 5 — Evaluation at a Random Point
 
 The verifier samples:
 
@@ -273,7 +273,7 @@ $$
 
 ---
 
-## Verifier Computation
+Verifier Computation
 
 The verifier can compute locally:
 
