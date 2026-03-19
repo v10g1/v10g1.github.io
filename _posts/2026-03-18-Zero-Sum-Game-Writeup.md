@@ -284,4 +284,51 @@ $$
 in $O(\log n)$ time.
 
 
+## The Vulnerability
+In the challenge, we need to make a proof which will convice the verifier somehow that the $\sum_{(a \in H)}f(a)=0$, but how can we even do that?
 
+This is made possible due to the fact that Bob has made the mechanism which made the sum of the Polynomial F secret, which is used to make the protocol anonymous, it allows the malicious prover to send the a secret polynomial s, and also allowing the opening of the same. This sum can be used to exploit the protocol
+
+In the honest protocol
+
+the goal is to prove $\sum_{(a \in H)}f(a)=\gamma$ without the verifier ever evalutating all the N points, the core trick is that we use a vanishing polynomial
+$Z_H(x)=x^n-1$
+
+or more like $$f(x)=h(x)Z_H(r)+r(x)$$
+
+since $Z_H()$ vanishes on H we dont actually need to check for all the points, it automatically constraints the sum check to check, for any x not in H the sum will not be eqaul to zero.
+
+Since $Z_H$ vanishes on  $H$, the first term contributed nothing ot the sum
+
+then key fact is 
+
+$$
+\sum_{h \in H} h^k =0
+$$
+
+this holds become h is a multiplicative subgroup- its elements are nth roots of unity $\omega$ which are symmeterically distributed and calcel each other out!!!
+
+The only exception is K=0, where the sum is just n, we can easily exclude it
+
+The verifier then checks this equation at a random point z via Schwartz zipple. The actual protocol adds a masking polynomial, making the check:
+
+$$
+f(x) + s(x) = h(x)\cdot Z_H(x) + x \cdot g(x) + \frac{\gamma}{N}
+$$
+
+However, the problem arises when the verifier tries to check the eqaubtion above at a random point
+
+But there is no check on $s(x)$ whatsoever, the prover can set it to anything he wants
+
+## The Exploit
+
+Say the real sum is gamma_real != 0 but your want to claim gamma_fake =0
+
+One approach that we can check is that we set the $s(x)$ to a randomized value to hide the constant term. Pick radnom coef $t_0,t_1....t_{n-2}$ and define the function $s(x)$ as the sum of the $t_1x^i$ over i= 0 to n-2
+
+and final eqaution SHOULD cancel out the terms, leaving the original eqaution, the check will pass
+
+
+Thank you for reading this Puzzle report, Follow for more
+
+Cheers! 🍻
