@@ -11,17 +11,17 @@ math: true
 
 ## Sum check protocol
 
-On the core this protocol uses Sum check protocol, which is the base for this challenge first lets understand What really is this "Sum check protcol"
+On the core this protocol uses Sum check protocol, which is the base for this challenge first lets understand What really is this "Sum check protocol"
 
 For the reference am reading the book by Justin Thaler, You can also read it from [here](https://people.cs.georgetown.edu/jthaler/ProofsArgsAndZK.pdf)
 
 Let's consider a general system where there are two actors $P$ or the Prover and $V$ or the verifier, we would not wanna assume that prover is a trusted entity, it may or may not be one.
 
-In cryptographical proof systems there is a term something known as "commiting" and this is no different than your Girlfriend not commiting to you (OUCH!). 
+In cryptographical proof systems there is a term something known as "committing" and this is no different than your Girlfriend not committing to you (OUCH!). 
 
-Commiting an equation qould simply mean that the entity cannot change it anymore for the current round. Here a prover will commit something which he wants it to be verified.
+Committing an equation would simply mean that the entity cannot change it anymore for the current round. Here a prover will commit something which he wants it to be verified.
 
-At the start of the sum check protocol, the prover sends a value $C_1$ claimed to equal the true answer. The sume check protocol proceeds in V rounds, one for each varaibles in the sent eqaution g. At the start of the first round, the prover send apolynimial $g_1(X_1)$ claimed to equal the polynomial $S_1(X_1)$
+At the start of the sum check protocol, the prover sends a value $C_1$ claimed to equal the true answer. The sum check protocol proceeds in V rounds, one for each variables in the sent equation g. At the start of the first round, the prover send a polynomial $g_1(X_1)$ claimed to equal the polynomial $S_1(X_1)$
 
 which can be defined as the follow
 $$
@@ -32,19 +32,19 @@ we need to keep the track of the follow
 
 $$H = s_1(0) + s_1(1)$$
 
-The verifier will need the check the claimed $C_1$ it should be eqaul, if not the protocol revert.
+The verifier will need the check the claimed $C_1$ it should be equal, if not the protocol revert.
 
 By revert I simply mean that the proof is reject by the verifier.
 
 What's next?
 
-Now we have the polynomial and we have checked for the current claimed value for the boolean hypercube. The idea of the sum-check protocol is that $V$ is probabilistically check this equality of polynomials hold by picking a random field element $r_1 \in \mathbb{F}$ and confirming that
+Now we have the polynomial and we have checked for the current claimed value for the Boolean hypercube. The idea of the sum-check protocol is that $V$ is probabilistically check this equality of polynomials hold by picking a random field element $r_1 \in \mathbb{F}$ and confirming that
 
 $$g_1(r_1)=s_1(r_1)$$
 
-Now if the equality is held then this would meanthen this hold for all $r_1 \in \mathbb{F}$
+Now if the equality is held then this would mean that this holds for all $r_1 \in \mathbb{F}$
 
-Well technically, there is a small probability that it will not sound enough, according to schwartz zippel lemma we have a probablity that it will be sound for atleast 1- deg(g)/$|\mathbb{F}|$ 
+Well technically, there is a small probability that it will not sound enough, according to Schwartz Zippel lemma we have a probability that it will be sound for at least 1- deg(g)/$|\mathbb{F}|$ 
 
 Round two:
 
@@ -98,9 +98,9 @@ but v10g, what the heck is a vanishing polynomial now bro?
 
 A vanishing polynomial over a set 𝐻 is exactly what the name suggests: a polynomial that evaluates to zero on every element of 𝐻
 
-You are not adding $Z_H(x)$ because of its value, we are adding it because of its zero divisibility behavious.
+You are not adding $Z_H(x)$ because of its value, we are adding it because of its zero divisibility behaviors.
 
--> If we explicitly check all the points, its gonna cost us more than US's defence budget.
+-> If we explicitly check all the points, its gonna cost us more than US's defense budget.
 
 Instead, we enforce one statement
 $f(x)=Z_H(x) \dot q(x)$
@@ -285,20 +285,20 @@ in $O(\log n)$ time.
 
 
 ## The Vulnerability
-In the challenge, we need to make a proof which will convice the verifier somehow that the $\sum_{(a \in H)}f(a)=0$, but how can we even do that?
+In the challenge, we need to make a proof which will convince the verifier somehow that the $\sum_{(a \in H)}f(a)=0$, but how can we even do that?
 
 This is made possible due to the fact that Bob has made the mechanism which made the sum of the Polynomial F secret, which is used to make the protocol anonymous, it allows the malicious prover to send the a secret polynomial s, and also allowing the opening of the same. This sum can be used to exploit the protocol
 
 In the honest protocol
 
-the goal is to prove $\sum_{(a \in H)}f(a)=\gamma$ without the verifier ever evalutating all the N points, the core trick is that we use a vanishing polynomial
+the goal is to prove $\sum_{(a \in H)}f(a)=\gamma$ without the verifier ever evaluating all the N points, the core trick is that we use a vanishing polynomial
 $Z_H(x)=x^n-1$
 
 or more like $$f(x)=h(x)Z_H(r)+r(x)$$
 
-since $Z_H()$ vanishes on H we dont actually need to check for all the points, it automatically constraints the sum check to check, for any x not in H the sum will not be eqaul to zero.
+since $Z_H()$ vanishes on H we don't actually need to check for all the points, it automatically constraints the sum check to check, for any x not in H the sum will not be equal to zero.
 
-Since $Z_H$ vanishes on  $H$, the first term contributed nothing ot the sum
+Since $Z_H$ vanishes on  $H$, the first term contributed nothing to the sum
 
 then key fact is 
 
@@ -306,17 +306,17 @@ $$
 \sum_{h \in H} h^k =0
 $$
 
-this holds become h is a multiplicative subgroup- its elements are nth roots of unity $\omega$ which are symmeterically distributed and calcel each other out!!!
+this holds become h is a multiplicative subgroup- its elements are nth roots of unity $\omega$ which are symmetrically distributed and cancel each other out!!!
 
 The only exception is K=0, where the sum is just n, we can easily exclude it
 
-The verifier then checks this equation at a random point z via Schwartz zipple. The actual protocol adds a masking polynomial, making the check:
+The verifier then checks this equation at a random point z via Schwartz Zippel. The actual protocol adds a masking polynomial, making the check:
 
 $$
 f(x) + s(x) = h(x)\cdot Z_H(x) + x \cdot g(x) + \frac{\gamma}{N}
 $$
 
-However, the problem arises when the verifier tries to check the eqaubtion above at a random point
+However, the problem arises when the verifier tries to check the equation above at a random point
 
 But there is no check on $s(x)$ whatsoever, the prover can set it to anything he wants
 
@@ -324,9 +324,9 @@ But there is no check on $s(x)$ whatsoever, the prover can set it to anything he
 
 Say the real sum is gamma_real != 0 but your want to claim gamma_fake =0
 
-One approach that we can check is that we set the $s(x)$ to a randomized value to hide the constant term. Pick radnom coef $t_0,t_1....t_{n-2}$ and define the function $s(x)$ as the sum of the $t_1x^i$ over i= 0 to n-2
+One approach that we can check is that we set the $s(x)$ to a randomized value to hide the constant term. Pick random coefficient $t_0,t_1....t_{n-2}$ and define the function $s(x)$ as the sum of the $t_1x^i$ over i= 0 to n-2
 
-and final eqaution SHOULD cancel out the terms, leaving the original eqaution, the check will pass
+and final equation SHOULD cancel out the terms, leaving the original equation, the check will pass
 
 
 Thank you for reading this Puzzle report, Follow for more
