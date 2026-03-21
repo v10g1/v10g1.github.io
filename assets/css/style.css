@@ -3,33 +3,57 @@
    ============================================================ */
 
 :root {
-  --bg:          #f6f5f0;
-  --bg-subtle:   #edecea;
-  --surface:     #ffffff;
-  --border:      #e2e0db;
-  --text:        #141412;
-  --text-muted:  #6b6960;
-  --accent:      #1a5c45;
-  --accent-soft: #e8f2ee;
-  --link:        #1a5c45;
-  --code-bg:     #f0eeea;
-  --shadow:      0 1px 3px rgba(0,0,0,0.07), 0 4px 12px rgba(0,0,0,0.04);
-  --radius:      6px;
-  --transition:  color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  --bg:           #f7f5ef;
+  --bg-subtle:    #edeae0;
+  --surface:      #ffffff;
+  --border:       #dedad0;
+  --text:         #131210;
+  --text-muted:   #6b6860;
+
+  /* Primary — deep forest green */
+  --accent:       #1a5c3a;
+  --accent-soft:  #dff0e8;
+  --link:         #1a5c3a;
+
+  /* Secondary — warm amber */
+  --amber:        #c05c10;
+  --amber-soft:   #fdeee2;
+
+  /* Tertiary — cool indigo */
+  --indigo:       #3d4fcf;
+  --indigo-soft:  #e5e8fb;
+
+  /* Rose */
+  --rose:         #b03060;
+  --rose-soft:    #fce8ef;
+
+  --code-bg:      #eeeae0;
+  --radius:       6px;
+  --transition:   color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
 
 [data-theme="dark"] {
-  --bg:          #111110;
-  --bg-subtle:   #1a1917;
-  --surface:     #1e1d1b;
-  --border:      #2d2b28;
-  --text:        #e8e4dc;
-  --text-muted:  #8a8680;
-  --accent:      #3ecf8e;
-  --accent-soft: #0d2e1f;
-  --link:        #3ecf8e;
-  --code-bg:     #222120;
-  --shadow:      0 1px 3px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2);
+  --bg:           #0f0e0c;
+  --bg-subtle:    #191714;
+  --surface:      #1d1c19;
+  --border:       #2e2b25;
+  --text:         #e9e4d8;
+  --text-muted:   #8a857a;
+
+  --accent:       #40d490;
+  --accent-soft:  #0c2b1c;
+  --link:         #40d490;
+
+  --amber:        #f08040;
+  --amber-soft:   #2b1a0a;
+
+  --indigo:       #7d8ef5;
+  --indigo-soft:  #151a40;
+
+  --rose:         #f06090;
+  --rose-soft:    #2a0e1c;
+
+  --code-bg:      #1a1916;
 }
 
 /* ============================================================
@@ -210,27 +234,39 @@ body {
   display: inline-flex;
   align-items: center;
   font-family: 'Syne', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--accent);
-  background-color: var(--accent-soft);
-  border: 1px solid currentColor;
+  color: var(--amber);
+  background-color: var(--amber-soft);
+  border: 1px solid var(--amber);
   border-radius: 100px;
   padding: 0.25rem 0.85rem;
   margin-bottom: 1.5rem;
-  opacity: 0.85;
 }
 
 .hero-name {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: clamp(2.4rem, 6vw, 3.6rem);
-  letter-spacing: -0.03em;
-  line-height: 1.05;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  font-style: italic;
+  font-size: clamp(2.6rem, 6vw, 3.8rem);
+  letter-spacing: -0.01em;
+  line-height: 1.08;
   color: var(--text);
   margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+}
+
+.hero-name::after {
+  content: '';
+  display: block;
+  height: 3px;
+  width: 60%;
+  margin-top: 0.4rem;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--indigo) 50%, var(--amber) 100%);
+  border-radius: 2px;
 }
 
 .hero-tagline {
@@ -308,7 +344,7 @@ body {
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--accent);
   margin-bottom: 2rem;
 }
 
@@ -349,8 +385,8 @@ body {
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--accent);
-  background-color: var(--accent-soft);
+  color: var(--indigo);
+  background-color: var(--indigo-soft);
   padding: 0.15rem 0.55rem;
   border-radius: 100px;
 }
@@ -415,7 +451,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--amber);
   text-decoration: none;
 }
 
@@ -444,18 +480,18 @@ body {
   font-size: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.04em;
-  color: var(--text-muted);
-  background-color: var(--bg-subtle);
-  border: 1px solid var(--border);
+  color: var(--rose);
+  background-color: var(--rose-soft);
+  border: 1px solid var(--rose);
   padding: 0.2rem 0.6rem;
   border-radius: 100px;
   text-decoration: none;
-  transition: color 0.15s, border-color 0.15s;
+  opacity: 0.8;
+  transition: opacity 0.15s;
 }
 
 .post-tag:hover {
-  color: var(--text);
-  border-color: var(--text-muted);
+  opacity: 1;
 }
 
 /* ============================================================
@@ -463,13 +499,13 @@ body {
    ============================================================ */
 
 .post-content {
-  font-size: 1.0625rem;
+  font-size: 1.05rem;
   line-height: 1.85;
   color: var(--text);
 }
 
 .post-content > * + * {
-  margin-top: 1.5rem;
+  margin-top: 1.4rem;
 }
 
 .post-content h1,
@@ -482,13 +518,17 @@ body {
   letter-spacing: -0.015em;
   line-height: 1.25;
   color: var(--text);
-  margin-top: 2.5rem;
-  margin-bottom: 0.75rem;
+  margin-top: 2.8rem;
+  margin-bottom: 0.6rem;
 }
 
-.post-content h2 { font-size: 1.45rem; }
-.post-content h3 { font-size: 1.15rem; }
-.post-content h4 { font-size: 1rem; }
+.post-content h2 {
+  font-size: 1.4rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.post-content h3 { font-size: 1.15rem; color: var(--indigo); }
+.post-content h4 { font-size: 1rem; color: var(--text-muted); }
 
 .post-content p { margin-bottom: 0; }
 
@@ -500,73 +540,183 @@ body {
   transition: opacity 0.15s;
 }
 
-.post-content a:hover {
-  opacity: 0.75;
-}
+.post-content a:hover { opacity: 0.75; }
 
 .post-content strong {
   font-weight: 600;
   color: var(--text);
 }
 
-.post-content em {
-  font-style: italic;
-}
+.post-content em { font-style: italic; }
 
 .post-content ul,
 .post-content ol {
   padding-left: 1.5rem;
 }
 
-.post-content li + li {
-  margin-top: 0.35rem;
-}
+.post-content li { margin-bottom: 0.3rem; }
+.post-content li + li { margin-top: 0.3rem; }
 
-/* Code */
-.post-content code {
+/* ── Inline code ─────────────────────────────────────────── */
+
+.post-content :not(pre) > code {
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
-  font-size: 0.84em;
+  font-size: 0.82em;
   background-color: var(--code-bg);
-  color: var(--text);
+  color: var(--amber);
   padding: 0.15em 0.45em;
   border-radius: 4px;
   border: 1px solid var(--border);
 }
 
+/* ── Code blocks — Rouge output ──────────────────────────── */
+
+/* Outer wrapper div that Rouge emits */
+.post-content div.highlighter-rouge,
+.post-content figure.highlight {
+  margin: 2rem 0;
+}
+
+/* The actual highlight container */
+.post-content .highlight,
+.post-content pre.highlight {
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.82rem;
+  line-height: 1.65;
+}
+
+/* Table-based layout (line_numbers: true) */
+.post-content .highlight table {
+  border: none;
+  margin: 0;
+  width: 100%;
+  font-size: inherit;
+  display: block;
+  overflow-x: auto;
+}
+
+.post-content .highlight td,
+.post-content .highlight th {
+  border: none;
+  padding: 0;
+}
+
+/* Gutter (line number column) */
+.post-content .highlight td.gutter,
+.post-content .highlight td.gl {
+  width: 2.5rem;
+  min-width: 2.5rem;
+  padding: 1rem 0.75rem 1rem 1rem;
+  text-align: right;
+  user-select: none;
+  -webkit-user-select: none;
+  color: var(--text-muted);
+  background-color: var(--bg-subtle);
+  border-right: 1px solid var(--border);
+  vertical-align: top;
+  opacity: 0.5;
+}
+
+.post-content .highlight td.gutter pre,
+.post-content .highlight td.gl pre {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  line-height: inherit;
+}
+
+/* Code column */
+.post-content .highlight td.code {
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  vertical-align: top;
+}
+
+.post-content .highlight td.code pre {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+}
+
+/* Plain pre (no line numbers) */
 .post-content pre {
   background-color: var(--bg-subtle);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1.25rem 1.5rem;
+  padding: 1.1rem 1.4rem;
   overflow-x: auto;
   margin: 2rem 0;
-  line-height: 1.6;
+  line-height: 1.65;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.82rem;
 }
 
 .post-content pre code {
   background: none;
   border: none;
   padding: 0;
-  font-size: 0.83rem;
   color: var(--text);
+  font-size: inherit;
 }
 
-/* Blockquote */
+/* ── Rouge token colors (light) ──────────────────────────── */
+
+.post-content .highlight .c,
+.post-content .highlight .c1,
+.post-content .highlight .cm,
+.post-content .highlight .cs  { color: var(--text-muted); font-style: italic; } /* comments */
+.post-content .highlight .k,
+.post-content .highlight .kd,
+.post-content .highlight .kn,
+.post-content .highlight .kp,
+.post-content .highlight .kr  { color: var(--indigo); font-weight: 600; }        /* keywords */
+.post-content .highlight .s,
+.post-content .highlight .s1,
+.post-content .highlight .s2,
+.post-content .highlight .sb  { color: var(--accent); }                           /* strings */
+.post-content .highlight .n,
+.post-content .highlight .na,
+.post-content .highlight .nb,
+.post-content .highlight .nc,
+.post-content .highlight .nf,
+.post-content .highlight .nn  { color: var(--text); }                             /* names */
+.post-content .highlight .m,
+.post-content .highlight .mi,
+.post-content .highlight .mf,
+.post-content .highlight .mh  { color: var(--amber); }                            /* numbers */
+.post-content .highlight .o,
+.post-content .highlight .ow  { color: var(--rose); }                             /* operators */
+.post-content .highlight .p   { color: var(--text-muted); }                       /* punctuation */
+.post-content .highlight .kt  { color: var(--indigo); }                           /* type names */
+.post-content .highlight .nv,
+.post-content .highlight .vi  { color: var(--text); }                             /* variables */
+
+/* ── Blockquote ──────────────────────────────────────────── */
+
 .post-content blockquote {
-  border-left: 3px solid var(--accent);
+  border-left: 3px solid var(--amber);
   padding: 0.75rem 1.25rem;
   margin: 2rem 0;
-  background-color: var(--accent-soft);
+  background-color: var(--amber-soft);
   border-radius: 0 var(--radius) var(--radius) 0;
 }
 
 .post-content blockquote p {
-  color: var(--text-muted);
+  color: var(--amber);
   font-style: italic;
   margin: 0;
 }
 
-/* Tables */
+/* ── Tables ──────────────────────────────────────────────── */
+
 .post-content table {
   width: 100%;
   border-collapse: collapse;
@@ -590,18 +740,37 @@ body {
   color: var(--text-muted);
 }
 
-/* HR */
+/* ── HR ──────────────────────────────────────────────────── */
+
 .post-content hr {
   border: none;
   border-top: 1px solid var(--border);
   margin: 3rem 0;
 }
 
-/* KaTeX overrides */
+/* ── KaTeX math ──────────────────────────────────────────── */
+
 .katex-display {
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 0.5rem 0;
+  padding: 1rem 1.25rem;
+  margin: 1.75rem 0;
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  border-left: 3px solid var(--indigo);
+}
+
+/* Tighten inline math vertical rhythm */
+.katex { font-size: 1.05em; }
+
+/* ── Image ───────────────────────────────────────────────── */
+
+.post-content img {
+  max-width: 100%;
+  border-radius: var(--radius);
+  margin: 1.5rem 0;
+  border: 1px solid var(--border);
 }
 
 .post-footer {
@@ -619,9 +788,7 @@ body {
   transition: color 0.15s;
 }
 
-.back-link:hover {
-  color: var(--text);
-}
+.back-link:hover { color: var(--text); }
 
 /* ============================================================
    LISTING PAGES (archives, categories, tags)
@@ -651,7 +818,7 @@ body {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--amber);
   margin-bottom: 1rem;
   padding-bottom: 0.6rem;
   border-bottom: 1px solid var(--border);
@@ -718,9 +885,9 @@ body {
 }
 
 .tag-pill:hover {
-  color: var(--accent);
-  border-color: var(--accent);
-  background-color: var(--accent-soft);
+  color: var(--rose);
+  border-color: var(--rose);
+  background-color: var(--rose-soft);
 }
 
 .tag-count {
