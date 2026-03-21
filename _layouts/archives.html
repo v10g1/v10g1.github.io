@@ -2,70 +2,22 @@
 layout: default
 ---
 
-<div class="archives">
-  <h1>Archives</h1>
+<div class="listing-page">
+  <h1 class="listing-title">Writing</h1>
+
+  {% assign current_year = "" %}
   {% for post in site.posts %}
     {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
-    {% capture month %}{{ post.date | date: '%B' }}{% endcapture %}
-    {% if year != prev_year %}
-      {% if prev_year %}<hr>{% endif %}
-      <h2>{{ year }}</h2>
-      {% assign prev_year = year %}
+    {% if year != current_year %}
+      {% unless forloop.first %}</div>{% endunless %}
+      <div class="archive-year-group">
+      <h2 class="archive-year">{{ year }}</h2>
+      {% assign current_year = year %}
     {% endif %}
-    <article class="post-preview">
-      <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d" }}</time>
+    <article class="archive-item">
+      <a href="{{ post.url }}" class="archive-item-title">{{ post.title }}</a>
+      <time class="archive-item-date">{{ post.date | date: "%b %d" }}</time>
     </article>
   {% endfor %}
+  {% if site.posts.size > 0 %}</div>{% endif %}
 </div>
-
-<style>
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  color: #333;
-  background-color: #fff;
-  margin: 0;
-  padding: 20px;
-}
-
-.archives h1 {
-  color: #000;
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 10px;
-}
-
-.archives h2 {
-  color: #000;
-  margin-top: 20px;
-}
-
-.post-preview {
-  margin-bottom: 10px;
-}
-
-.post-preview h3 {
-  margin: 0;
-  font-size: 1.2em;
-}
-
-.post-preview h3 a {
-  color: #000;
-  text-decoration: none;
-}
-
-.post-preview h3 a:hover {
-  color: #0066cc;
-}
-
-.post-preview time {
-  font-size: 0.9em;
-  color: #666;
-}
-
-hr {
-  border: none;
-  border-top: 1px solid #ccc;
-  margin: 20px 0;
-}
-</style>
