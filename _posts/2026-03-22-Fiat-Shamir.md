@@ -4,7 +4,7 @@ date: 2026-03-22 00:00:00 +0530
 categories: [ZK, Mathematics]
 tags: [zk]
 maths: true
-image: /assets/blogs/blog3.png
+image: /assets/blog3.png
 ---
 
 
