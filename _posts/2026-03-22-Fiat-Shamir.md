@@ -1,9 +1,10 @@
 ---
 title: "Unhasing the Hashes: Fiat Shamir Transformation"
-date: 2026-03-11 00:00:00 +0530
+date: 2026-03-22 00:00:00 +0530
 categories: [ZK, Mathematics]
 tags: [zk]
 maths: true
+image: /assets/blogs/blog3.png
 ---
 
 
@@ -167,7 +168,7 @@ In Weak FS, We replace the verifier's randomness with:
 
 $e=H(a)$
 
-> Note -> assume that the Hash function is completely fine and has not problems
+> Note -> assume that the Hash function is completely fine and has no problems
 So the protocol become non-interactive:
 
 1. a ← Commit(x)
@@ -252,7 +253,7 @@ Yes everything that can be changed by the Prover during the commitement.
 
 It would look something like 
 
-e = H(x || a || transcript)
+e = H(x,a,transcript)
 
 ## Bits of Security 
 The security level of a non-interactive argument is measured by the amount of work that
