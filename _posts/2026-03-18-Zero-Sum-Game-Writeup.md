@@ -4,6 +4,7 @@ date: 2026-03-18 00:00:00 +0530
 categories: [ZK, Writeups]
 tags: [zk, zkHack-Puzzles,writeups,solutions]
 math: true
+image: /assets/sumcheckgame.png
 ---
 > WARNING -> Contains spoilers for the challenge, Please don't read it if you want to attempt it in the future
 
