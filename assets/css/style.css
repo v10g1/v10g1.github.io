@@ -1006,3 +1006,185 @@ body {
   color: var(--text-muted);
   max-width: 820px;
 }
+
+/* ============================================================
+   THUMBNAILS
+   ============================================================ */
+
+/* ── Home post cards — side-by-side layout ───────────────── */
+
+.post-item {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 1.75rem;
+  align-items: start;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.post-item:first-child { border-top: 1px solid var(--border); }
+
+.post-item-thumb {
+  display: block;
+  width: 200px;
+  height: 140px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  flex-shrink: 0;
+  text-decoration: none;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.post-item-thumb:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.post-item-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border: none;
+  margin: 0;
+}
+
+/* Placeholder thumbnail */
+.post-thumb-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Category-based color schemes for placeholder */
+.post-thumb-placeholder[data-cat="zk"],
+.post-thumb-placeholder[data-cat="writeups"],
+.post-thumb-placeholder[data-cat="zk-writeups"] {
+  background: linear-gradient(135deg, var(--indigo-soft) 0%, var(--accent-soft) 100%);
+  border: 1px solid var(--indigo);
+  color: var(--indigo);
+}
+
+.post-thumb-placeholder[data-cat="general"] {
+  background: linear-gradient(135deg, var(--amber-soft) 0%, var(--rose-soft) 100%);
+  border: 1px solid var(--amber);
+  color: var(--amber);
+}
+
+/* Default fallback */
+.post-thumb-placeholder:not([data-cat]) {
+  background: linear-gradient(135deg, var(--bg-subtle) 0%, var(--accent-soft) 100%);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+/* Geometric noise overlay */
+.post-thumb-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 80%, currentColor 1px, transparent 1px),
+    radial-gradient(circle at 80% 20%, currentColor 1px, transparent 1px),
+    radial-gradient(circle at 50% 50%, currentColor 0.5px, transparent 0.5px);
+  background-size: 24px 24px, 18px 18px, 12px 12px;
+  opacity: 0.08;
+}
+
+.thumb-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  position: relative;
+  z-index: 1;
+}
+
+.thumb-icon {
+  opacity: 0.5;
+  position: relative;
+  z-index: 1;
+}
+
+.post-item-body {
+  min-width: 0;
+}
+
+/* ── Archive thumbnails — smaller, inline ────────────────── */
+
+.archive-item--expanded {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 1.25rem;
+  align-items: start;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.archive-item--expanded:last-child { border-bottom: none; }
+
+.archive-item-thumb {
+  display: block;
+  width: 100px;
+  height: 70px;
+  border-radius: calc(var(--radius) - 1px);
+  overflow: hidden;
+  flex-shrink: 0;
+  text-decoration: none;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.archive-item-thumb:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+.archive-item-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border: none;
+  margin: 0;
+}
+
+.archive-item-thumb .post-thumb-placeholder {
+  width: 100%;
+  height: 100%;
+}
+
+.archive-item-thumb .thumb-label { font-size: 0.52rem; }
+.archive-item-thumb .thumb-icon  { width: 16px; height: 16px; }
+
+.archive-item-body { min-width: 0; }
+
+/* ── Responsive ──────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+  .post-item {
+    grid-template-columns: 1fr;
+  }
+
+  .post-item-thumb {
+    width: 100%;
+    height: 180px;
+  }
+
+  .archive-item--expanded {
+    grid-template-columns: 80px 1fr;
+    gap: 1rem;
+  }
+
+  .archive-item-thumb {
+    width: 80px;
+    height: 56px;
+  }
+}

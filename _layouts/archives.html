@@ -8,6 +8,8 @@ layout: default
   {% assign current_year = "" %}
   {% for post in site.posts %}
     {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
+    {% assign cat = post.categories[0] | default: "ZK" %}
+    {% assign cat_slug = cat | slugify %}
     {% if year != current_year %}
       {% unless forloop.first %}</div>{% endunless %}
       <div class="archive-year-group">
@@ -15,11 +17,23 @@ layout: default
       {% assign current_year = year %}
     {% endif %}
     <article class="archive-item archive-item--expanded">
-      <div class="archive-item-header">
-        <a href="{{ post.url }}" class="archive-item-title">{{ post.title }}</a>
-        <time class="archive-item-date">{{ post.date | date: "%b %d" }}</time>
+      <a href="{{ post.url }}" class="archive-item-thumb" aria-hidden="true" tabindex="-1">
+        {% if post.image %}
+          <img src="{{ post.image }}" alt="{{ post.title }}" loading="lazy">
+        {% else %}
+          <div class="post-thumb-placeholder" data-cat="{{ cat_slug }}">
+            <span class="thumb-label">{{ cat | upcase | truncate: 12, "" }}</span>
+            <svg class="thumb-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+        {% endif %}
+      </a>
+      <div class="archive-item-body">
+        <div class="archive-item-header">
+          <a href="{{ post.url }}" class="archive-item-title">{{ post.title }}</a>
+          <time class="archive-item-date">{{ post.date | date: "%b %d" }}</time>
+        </div>
+        <p class="archive-item-excerpt">{{ post.content | strip_html | strip_newlines | truncate: 240 }}</p>
       </div>
-      <p class="archive-item-excerpt">{{ post.content | strip_html | strip_newlines | truncate: 280 }}</p>
     </article>
   {% endfor %}
   {% if site.posts.size > 0 %}</div>{% endif %}

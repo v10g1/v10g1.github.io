@@ -24,20 +24,34 @@ layout: default
   <h2 class="section-label">Recent Writing</h2>
   <div class="post-list">
     {% for post in site.posts %}
+      {% assign cat = post.categories[0] | default: "ZK" %}
+      {% assign cat_slug = cat | slugify %}
       <article class="post-item">
-        <div class="post-item-meta">
-          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %d, %Y" }}</time>
-          {% if post.categories %}
-            {% for cat in post.categories limit:1 %}
-              <span class="post-item-cat">{{ cat }}</span>
-            {% endfor %}
+        <a href="{{ post.url }}" class="post-item-thumb" data-cat="{{ cat_slug }}" aria-hidden="true" tabindex="-1">
+          {% if post.image %}
+            <img src="{{ post.image }}" alt="{{ post.title }}" loading="lazy">
+          {% else %}
+            <div class="post-thumb-placeholder" data-cat="{{ cat_slug }}">
+              <span class="thumb-label">{{ cat | upcase | truncate: 12, "" }}</span>
+              <svg class="thumb-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </div>
           {% endif %}
+        </a>
+        <div class="post-item-body">
+          <div class="post-item-meta">
+            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %d, %Y" }}</time>
+            {% if post.categories %}
+              {% for c in post.categories limit:1 %}
+                <span class="post-item-cat">{{ c }}</span>
+              {% endfor %}
+            {% endif %}
+          </div>
+          <h3 class="post-item-title">
+            <a href="{{ post.url }}">{{ post.title }}</a>
+          </h3>
+          <p class="post-item-excerpt">{{ post.content | strip_html | strip_newlines | truncate: 320 }}</p>
+          <a href="{{ post.url }}" class="post-item-readmore">Read more →</a>
         </div>
-        <h3 class="post-item-title">
-          <a href="{{ post.url }}">{{ post.title }}</a>
-        </h3>
-        <p class="post-item-excerpt">{{ post.content | strip_html | strip_newlines | truncate: 380 }}</p>
-        <a href="{{ post.url }}" class="post-item-readmore">Read more →</a>
       </article>
     {% endfor %}
   </div>
