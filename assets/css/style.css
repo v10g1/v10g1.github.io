@@ -101,7 +101,7 @@ body {
 }
 
 .header-inner {
-  max-width: 780px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 0 1.5rem;
   height: 56px;
@@ -182,7 +182,7 @@ body {
 
 .site-main {
   flex: 1;
-  max-width: 780px;
+  max-width: 1100px;
   width: 100%;
   margin: 0 auto;
   padding: 3rem 1.5rem;
@@ -195,7 +195,7 @@ body {
 }
 
 .footer-inner {
-  max-width: 780px;
+  max-width: 1100px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -276,14 +276,14 @@ body {
   font-size: 1.2rem;
   color: var(--text-muted);
   margin-bottom: 1.25rem;
-  max-width: 520px;
+  max-width: 680px;
 }
 
 .hero-bio {
   font-size: 0.975rem;
   line-height: 1.8;
   color: var(--text-muted);
-  max-width: 560px;
+  max-width: 720px;
   margin-bottom: 2rem;
 }
 
@@ -414,7 +414,7 @@ body {
   font-size: 0.9rem;
   color: var(--text-muted);
   line-height: 1.65;
-  max-width: 600px;
+  max-width: 860px;
 }
 
 /* ============================================================
@@ -422,7 +422,7 @@ body {
    ============================================================ */
 
 .post {
-  max-width: 660px;
+  max-width: 960px;
 }
 
 .post-header {
@@ -795,7 +795,7 @@ body {
    ============================================================ */
 
 .listing-page {
-  max-width: 660px;
+  max-width: 960px;
 }
 
 .listing-title {
@@ -935,7 +935,7 @@ body {
    RESPONSIVE
    ============================================================ */
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .site-nav a {
     display: none;
   }
@@ -960,4 +960,49 @@ body {
   .site-main {
     padding: 2rem 1rem;
   }
+}
+
+/* ── Post item read more link ────────────────────────────── */
+
+.post-item-readmore {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: color 0.15s, gap 0.15s;
+}
+
+.post-item-readmore:hover {
+  color: var(--indigo);
+}
+
+/* ── Archive expanded items ──────────────────────────────── */
+
+.archive-item--expanded {
+  display: block;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.archive-item--expanded:last-child {
+  border-bottom: none;
+}
+
+.archive-item-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.archive-item-excerpt {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  max-width: 820px;
 }

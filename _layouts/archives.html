@@ -14,9 +14,12 @@ layout: default
       <h2 class="archive-year">{{ year }}</h2>
       {% assign current_year = year %}
     {% endif %}
-    <article class="archive-item">
-      <a href="{{ post.url }}" class="archive-item-title">{{ post.title }}</a>
-      <time class="archive-item-date">{{ post.date | date: "%b %d" }}</time>
+    <article class="archive-item archive-item--expanded">
+      <div class="archive-item-header">
+        <a href="{{ post.url }}" class="archive-item-title">{{ post.title }}</a>
+        <time class="archive-item-date">{{ post.date | date: "%b %d" }}</time>
+      </div>
+      <p class="archive-item-excerpt">{{ post.content | strip_html | strip_newlines | truncate: 280 }}</p>
     </article>
   {% endfor %}
   {% if site.posts.size > 0 %}</div>{% endif %}

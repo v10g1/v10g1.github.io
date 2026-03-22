@@ -36,9 +36,8 @@ layout: default
         <h3 class="post-item-title">
           <a href="{{ post.url }}">{{ post.title }}</a>
         </h3>
-        {% if post.excerpt %}
-          <p class="post-item-excerpt">{{ post.excerpt | strip_html | truncate: 140 }}</p>
-        {% endif %}
+        <p class="post-item-excerpt">{{ post.content | strip_html | strip_newlines | truncate: 380 }}</p>
+        <a href="{{ post.url }}" class="post-item-readmore">Read more →</a>
       </article>
     {% endfor %}
   </div>
