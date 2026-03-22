@@ -1,280 +1,203 @@
 ---
-title: "Unhasing the Hashes: Fiat Shamir Transformation"
+title: "Unhashing the Hashes: Fiat-Shamir Transformation"
 date: 2026-03-22 00:00:00 +0530
 categories: [ZK, Mathematics]
 tags: [zk]
-maths: true
+math: true
 image: /assets/blog3.png
 ---
 
+In this post we will be deep diving into the core workings of the Fiat-Shamir transformation.
 
-In this Blog we will be deep diving into the core workings of Fiat Shamir transformation.
+Personally, this is the part I struggled the most when reading the Thaler [book](https://people.cs.georgetown.edu/jthaler/ProofsArgsAndZK.pdf).
 
-Personally, this is the part I struggled the most when I was reading the Thaler [book](https://people.cs.georgetown.edu/jthaler/ProofsArgsAndZK.pdf)
 ## The Random Oracle Model
-The Random oracle model is setting, which is used to get the randomness into the system, by the means of the efficient systems, the function maps somme domain $D$ to the k-bit range ${0,1}^k$ we mean the following: on any input x $\in D$, R chooses its output $R(x)$ uniformly at a random point in the range.
 
-Assumption
-- The prover and verifer have the query acess to a random function R, which returns the same ouput for the current round.
-- The Random oracle assumption is not valid in the real world, as specifyin a function R requires $|D|K$ bits essentially one must list the value $R(x)$ . 
+The Random Oracle Model is a setting used to get randomness into the system. The function maps some domain $D$ to the $k$-bit range $\{0,1\}^k$ — on any input $x \in D$, the oracle $R$ chooses its output $R(x)$ uniformly at random in the range.
 
-Which is very difficult to implement in a real world case
+**Assumptions:**
+- Both the prover and verifier have query access to a random function $R$, which returns the same output for the same input within the current round.
+- The Random Oracle assumption is not valid in the real world, as specifying a function $R$ requires $|D| \cdot k$ bits — essentially one must list the value $R(x)$ for every $x$.
 
-We need to find the solution for the same.
-## The Solution ?
-Normally, in a Public coin protocol, then structure goes like follow
-```bash
-          ┌──────────────────────────┐
-          │        Prover (P)        │
-          │  (Computationally strong)│
-          └────────────┬─────────────┘
-                       │
-                       │  1. Commitment / First Message
-                       │  (depends on statement x)
-                       ▼
-          ┌──────────────────────────┐
-          │       Verifier (V)       │
-          │   (Randomness is public) │
-          └────────────┬─────────────┘
-                       │
-                       │  2. Public Random Coins (r)
-                       │  (sampled and revealed)
-                       ▼
-          ┌──────────────────────────┐
-          │        Prover (P)        │
-          └────────────┬─────────────┘
-                       │
-                       │  3. Response
-                       │  (depends on r and prior msg)
-                       ▼
-          ┌──────────────────────────┐
-          │       Verifier (V)       │
-          └────────────┬─────────────┘
-                       │
-                       │  4. Verify:
-                       │     Accept / Reject
-                       ▼
-                ┌──────────────┐
-                │   Decision   │
-                └──────────────┘
+This is very difficult to implement in practice, so we need a better solution.
+
+## The Solution?
+
+In a **public-coin protocol**, the structure goes as follows:
+
 ```
-Key structural properties
-Public coins:
-The verifier samples randomness r and sends it in the clear to the prover (no hidden randomness).
-
-Interaction pattern (3-move example):
-
-P → V : a
-V → P : r   (public randomness)
-P → V : z
-
-
-This is exactly the Arthur–Merlin (AM) model:
-Arthur (V) = randomized polynomial-time verifier
-Merlin (P) = all-powerful prover
-
-In this system, I can think of two in-efficencies (Not vulerabilities)
-
-1. R problem we talked about earlier
-
-2. In blockchain system, doing back and foreth with this the Random R, would be too tedious of task
-
-Note -> Even if the system is not a blockchain system, the time spend in this would be too much 
-
-**So what can we do instead?**
-
-Here comes the fiat shamir heuristics
-
-The fiat shamir transformation replaces each of the verifier's messages from the interaction protocol I with a value derived from the random oracle, where the query point is the list of messages sent by the prover in the round 1,2,....v. 
-
-Let me try to explain in a Lame Language.
-
-1. Lets say you are the verfier and I am the Prover.
-
-2. I, as a prover want to prove that I know something lets say $c_1$
-
-3. Now I will calculate the expression which will be needed to prove for the first round.
-
-Now pause this Prover side for now, and lets try to understand the same in the Verfier side
-
-1. For the verifier, You will recieve a commitment from my side which i cannot change for the current round
-
-2. You will check the, having two options in hand, accept or reject, if reject, protocol will be stopped with negative outcome.
-
-3. If the first round is accepted, then you will try to calculate the Hash, of the message that the prover sent in the last round (will take about this part later again).
-
-r = H(domain_separator || x || a || transcript_so_far)
-
-4. and that Hash works as the random R, 
-
-
-Usually the prover computes all the hashes recursively with the follow-up answer, before even sending the first round. 
-
-please don't go yet!! I know this this is hard to process, by the end of this blog post I know you will understand atleast 90% of this.
-
-## How this is represented?
-
-Below is the diagram which my trusted friend ChatGPT made it for me 
-```bash
-        ┌──────────────────────┐
-        │      Prover (P)      │
-        └─────────┬────────────┘
-                  │
-                  │ a ← Commit(x)
-                  │ r = H(a, x)
-                  │ z ← Response(...)
-                  ▼
-             Proof π = (a, z)
-
-        ┌──────────────────────┐
-        │     Verifier (V)     │
-        └─────────┬────────────┘
-                  │
-                  │ r = H(a, x)
-                  │ Verify(...)
-                  ▼
-               Accept / Reject
+┌──────────────────────────┐
+│        Prover (P)        │
+│  (Computationally strong)│
+└────────────┬─────────────┘
+             │
+             │  1. Commitment / First Message
+             │     (depends on statement x)
+             ▼
+┌──────────────────────────┐
+│       Verifier (V)       │
+│   (Randomness is public) │
+└────────────┬─────────────┘
+             │
+             │  2. Public Random Coins r
+             │     (sampled and revealed)
+             ▼
+┌──────────────────────────┐
+│        Prover (P)        │
+└────────────┬─────────────┘
+             │
+             │  3. Response
+             │     (depends on r and prior message)
+             ▼
+┌──────────────────────────┐
+│       Verifier (V)       │
+└────────────┬─────────────┘
+             │
+             │  4. Verify → Accept / Reject
+             ▼
+      ┌──────────────┐
+      │   Decision   │
+      └──────────────┘
 ```
 
-## A Common vulnerability
+**Key structural properties:**
 
-for the fiat-shamir transformation ot be secure in settings where an adversary can choose the input x to the IP or argument, it is essential that x be appended to the list that is hashed in each around. This property of soundness against protects adversary than can choose x is called adaptice soundness. 
+- **Public coins:** The verifier samples randomness $r$ and sends it in the clear to the prover (no hidden randomness).
+- **3-move interaction pattern:**
 
-But Vrisan, How would anyone be able attack this?
+$$P \xrightarrow{\ a\ } V \xrightarrow{\ r\ } P \xrightarrow{\ z\ } V$$
 
-## Weakness in  Fiat-shamir ?
+This is exactly the **Arthur–Merlin (AM)** model — Arthur ($V$) is a randomized polynomial-time verifier, Merlin ($P$) is an all-powerful prover.
 
-Weak Fait shamir is the basic and insufficiently hardened version of the fiat shamir Transformation where the verifier's random challenge is replaced by a hash of only part of the transcript- typically just the prover first message.
+Two inefficiencies arise in practice:
 
-It's weak because it omits critical bindings (to the statement, context, and full transcript), which opens the door to malleability and soundess issues in realistic settings
+1. Specifying the random oracle $R$ is infeasible as described above.
+2. In systems like blockchains, the back-and-forth interaction cost is prohibitive.
 
-How? let me explain.
+**So what do we do instead?**
 
-Lets imagine a 3-move public coin protocol
+## Fiat-Shamir Transformation
 
-P → V : a        (commitment)
+The Fiat-Shamir transformation replaces each of the verifier's messages with a value derived from a hash function (standing in for the random oracle), where the query point is the full list of messages sent by the prover in rounds $1, 2, \ldots, v$.
 
-V → P : e        (random challenge)
+In plain terms:
 
-P → V : z        (response)
+1. You (the prover) want to prove knowledge of some witness — say $c_1$.
+2. You compute a commitment $a$ depending on your statement $x$.
+3. Instead of waiting for the verifier to send randomness, you compute:
 
-with the verification 
+$$r = H(\text{domain\_separator} \,\|\, x \,\|\, a \,\|\, \text{transcript\_so\_far})$$
 
-$Verify(x,a,e,z)==1$
+4. This hash output plays the role of the verifier's random challenge $r$.
+5. The prover computes all challenges recursively and sends a single proof $\pi = (a, z)$ — no interaction required.
 
-## Weak fiat-Shamir Transformation
-Lets start with the challenge, find the bug in the following protocol.
-In Weak FS, We replace the verifier's randomness with:
+The verifier, on receiving $\pi$, recomputes the same hash and checks the proof. Both sides agree on $r$ without any back-and-forth.
 
-$e=H(a)$
+## Non-Interactive Protocol Diagram
 
-> Note -> assume that the Hash function is completely fine and has no problems
-So the protocol become non-interactive:
+```
+┌──────────────────────┐
+│      Prover (P)      │
+└─────────┬────────────┘
+          │
+          │  a ← Commit(x)
+          │  r = H(domain_sep ‖ x ‖ a)
+          │  z ← Response(x, a, r)
+          │
+          │  Proof π = (a, z)
+          ▼
+┌──────────────────────┐
+│     Verifier (V)     │
+└─────────┬────────────┘
+          │
+          │  r = H(domain_sep ‖ x ‖ a)
+          │  Check: Verify(x, a, r, z) == 1
+          ▼
+       Accept / Reject
+```
 
-1. a ← Commit(x)
+## Adaptive Soundness — A Critical Property
 
-2. e ← H(a)
+For the Fiat-Shamir transformation to be secure in settings where an adversary can **choose** the input $x$, it is essential that $x$ be included in the hash at every round. Soundness against an adversary that can choose $x$ is called **adaptive soundness**.
 
-3. z ← Response(x, a, e)
+Without it, the door is open to statement malleability attacks.
 
+## Weak Fiat-Shamir
 
-Output proof: π = (a, z)
+**Weak Fiat-Shamir** is an insufficiently hardened version where the verifier's random challenge is replaced by a hash of only part of the transcript — typically just the prover's first message.
 
+Given a 3-move protocol:
 
-So what is wrong in here?
+$$P \xrightarrow{\ a\ } V \xrightarrow{\ e\ } P \xrightarrow{\ z\ } V \quad \text{with } \mathsf{Verify}(x,a,e,z) = 1$$
 
-Now give yourself 1 minute and try to figure out the problem here
+Weak FS replaces the challenge with:
 
+$$e = H(a)$$
 
-3.....2.....1
+The proof becomes $\pi = (a, z)$ where:
 
+1. $a \leftarrow \mathsf{Commit}(x)$
+2. $e \leftarrow H(a)$
+3. $z \leftarrow \mathsf{Response}(x, a, e)$
 
-So There are some missing binding in the hashing function
+> **Spot the bug.** Give yourself 60 seconds before reading on.
 
-Which are 
-1. Statement X is not used
-2. Full transcript is not used
-3. Domain seperation is not used
+---
 
+The hash is missing three critical bindings:
 
-Now lets analyze each of the mistake thoroughly
+| Missing | Why it matters |
+|---|---|
+| Statement $x$ | Challenge is not tied to what is being proved |
+| Full transcript | Prior messages can be swapped out |
+| Domain separator | Proofs can be replayed across protocols |
 
-**Statement Malleability**
-The challenge is not bound to the statement x.
-If two statements $x_1$ and $x_2$ share structure:
+### Statement Malleability
 
-Same a -> Same e
+The challenge $e$ is not bound to the statement $x$.
 
-Independent of what statement is being proven
+If two statements $x_1$ and $x_2$ share the same commitment structure, then:
 
-Attack Intuition
-Suppose you have a valid proof for the statement $x_1$
+$$\text{same } a \implies \text{same } e \quad \text{(regardless of } x\text{)}$$
 
-$(a_1,z)$ such that Verify(x,a,H(a))==1
+Concretely: suppose you hold a valid proof $(a, z)$ for statement $x_1$ such that $\mathsf{Verify}(x_1, a, H(a), z) = 1$. If the verification equation is structure-preserving, you may be able to reuse or tweak $z$ to produce a valid proof for a related statement $x_2$.
 
-Now consider a related Statement $x_2$
+### Replay Attacks
 
-If the verification equation is structure-preserving, then same a give you same e
+Proofs are not instance-bound. A proof $\pi = (a, z)$ can be replayed across:
 
-You may be able to reuse or tweak to make it valid for $x_2$
+- Different protocol sessions
+- Different public inputs
+- Entirely different contexts
 
-**Replay Attacks**
+## Auditing Checklist
 
-Proofs are not instance bound
+When auditing any Fiat-Shamir implementation:
 
-You generate the proof $\pi =(a,z)$
+1. Find all prover-controlled values in the commitment phase.
+2. Check whether each one is included in the hash input.
+3. If any is missing — that's your finding.
+4. Check the verification equation for structural reuse.
 
-Now the attacker can resuse it in different contexts
-- Different protocol 
-- Different session
-- different public input internpretation
+## The Fix
 
-## When a Fiat shamir implementation is Weak?
-When you are auditing any system which implements the Fiat Shamir, you wanna check these first
-1. Find the prover controlled values.
-2. Are they in transcript?
-3. no? bingo
+Two words: **bind everything**.
 
-4. Check the verification
+Everything that the prover controls at commitment time must go into the hash:
 
-find a way to manipulate it
+$$e = H(\underbrace{x}_{\text{statement}} \,\|\, \underbrace{a}_{\text{commitment}} \,\|\, \underbrace{\text{transcript}}_{\text{prior msgs}} \,\|\, \underbrace{\text{ctx}}_{\text{domain sep}})$$
 
-Simple.
+## Bits of Security
 
+The security level of a non-interactive argument is the $\log_2$ of the work required to find a convincing proof of a false statement — this is called **bits of computational security**.
 
+For example, 30 bits of security means $2^{30} \approx 1$ billion steps of work are required to break the scheme.
 
-## What would be a fix?
+| Setting | Recommended security |
+|---|---|
+| Non-interactive arguments | $\geq 128$ bits computational |
+| Interactive protocols | Lower levels acceptable |
 
-2 words. bind EVERYTHING
+The key asymmetry: in an **interactive** protocol at 60 bits of security, each attack attempt succeeds with probability at most $2^{-60}$. After $2^{50}$ attempts, a successful forgery is still unlikely. The prover does not learn whether the verifier's challenge will be "lucky" until after committing.
 
-Everything? 
-
-Yes everything that can be changed by the Prover during the commitement.
-
-It would look something like 
-
-e = H(x,a,transcript)
-
-## Bits of Security 
-The security level of a non-interactive argument is measured by the amount of work that
-must be done to find a convincing “proof” of a false statement. Similar to other cryptographic primitives
-like digital signatures and collision-resistant hash functions, the logarithm of this amount of work is referred
-to as the number of bits of computational security. For example, 30 bits of security implies that 230 ≈ 1
-billion “steps of work” are required to attack the argument system
-This is inherently an approximate
-measure of real-world security because the notion of one step of work can vary, and practical considerations
-like memory requirements or opportunities for parallelism are not considered.
-
-**Appropriate security levels for interactive vs. non-interactive arguments.**
-
-non interactive arguments are generally recommended to be deployed with at least 100 or 128 bits of computation security. In contract, it may be appropirate in some contexts to set statistical or interactive security levels lower
-
-The key difference is that, with statistical or interactive security, the cheating prover has to actually
-interact with the verifier in order to “attempt” an attack that will succeed with only tiny probability.
-
-This is because the cheating prover in an interactive protocol is hoping to get a lucky verifier challenge, and the prover does not know whether or not the verifier challenges will be lucky untill after sending one or more messages to the verifier and recieving challenges in response.
-
-For example, suppose that an interactive protocol is run at 60 bits of interactive security. Ths means that each attempted attack succes with the probability of at most $2^{-60}$ So after, say 2^50 attemptes, its still unlikely that the fake proof was done.
-
-
-In contrast to non-interactive arguments, a cheating prover can silently attack a protocol without any interaction witht he verifier. For example if apply the fiat shamir transformation to a 3 message interactive protocol as considered in figure 5.2 below, the canonical "grinding attack" on the resulting non-interactive argument involves the prover attempting to guess a first message $\alpha$ that field a l
+In a **non-interactive** argument, the prover can grind silently without any interaction. The canonical grinding attack on a Fiat-Shamir-transformed 3-message protocol involves the prover attempting to find a first message $\alpha$ such that $H(\alpha)$ lands in a favorable region — with no verifier interaction required per attempt.
