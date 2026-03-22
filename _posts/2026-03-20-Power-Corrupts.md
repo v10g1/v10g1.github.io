@@ -4,7 +4,7 @@ date: 2026-03-20 00:00:00 +0530
 categories: [ZK, Writeups]
 tags: [zk, zkHack-Puzzles,writeups,solutions]
 math: true
-image: assets/blog2.png
+image: /assets/blog2.png
 ---
 
 NOTE -> this is a draft, not a complete blog
