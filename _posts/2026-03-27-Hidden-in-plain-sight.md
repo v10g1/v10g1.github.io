@@ -1,6 +1,6 @@
 ---
 title: "Hidden in Plain Sight Writeup"
-date: 2026-03-28 00:00:00 +0530
+date: 2026-03-27 00:00:00 +0530
 categories: [ZK, Writeups]
 tags: [zk, zkHack-Puzzles,writeups,solutions]
 math: true
