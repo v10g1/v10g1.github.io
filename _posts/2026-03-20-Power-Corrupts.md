@@ -7,7 +7,7 @@ math: true
 image: /assets/blog2.png
 ---
 
-NOTE -> this is a draft, not a complete blog
+
 
 
 ## Initial run
