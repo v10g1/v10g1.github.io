@@ -30,15 +30,15 @@ Along with that, I also focused on the the commitment On-chain
 During this Hunt, I found 5 Vulnerbilities, which were submitted  to the Dev team
 
 # Findings
-During this Hunt, I found 5 Vulnerbilities, which were submitted  to the Dev team
-| S.No | Title        | Severity |Response|
-|------|-------------|----------|----------|
-| 1    |    Unrestricted commitment_root overwrites allows fake satisfiability         |    Critical      |Fixed |
-| 2    | Unconstrained direction input allows the attacker to forge Merkle roots            | Critical         |Fixed|
-| 3    | Market can be drained with Commitment Decoupling            | Critical         |Fixed|
-| 4 | redacted | High | Acknowledged
-| 5 | redacted | Fixed |
+During this hunt, I found 5 vulnerabilities, which were submitted to the dev team.
 
+| S.No | Title                                                                 | Severity | Response      |
+|------|----------------------------------------------------------------------|----------|---------------|
+| 1    | Unrestricted commitment_root overwrites allows fake satisfiability   | Critical | Fixed         |
+| 2    | Unconstrained direction input allows attacker to forge Merkle roots  | Critical | Fixed         |
+| 3    | Market can be drained with Commitment Decoupling                     | Critical | Fixed         |
+| 4    | redacted                                                            | High     | Acknowledged  |
+| 5    | redacted                                                            | Medium | Fixed         |
 
 # [Critical] Unrestricted commitment_root overwrites allows fake satisfiability
 **File** -> [Redacted]

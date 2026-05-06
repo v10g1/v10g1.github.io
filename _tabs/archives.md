@@ -1,5 +1,28 @@
 ---
-layout: archives
-icon: fas fa-archive
-order: 3
+layout: default
 ---
+
+<div class="listing-page">
+  <h1 class="listing-title">Writing</h1>
+
+  {% assign current_year = "" %}
+  {% for post in site.posts %}
+    {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
+    {% if year != current_year %}
+      {% unless forloop.first %}</div>{% endunless %}
+      <div class="archive-year-group">
+      <h2 class="archive-year">{{ year }}</h2>
+      {% assign current_year = year %}
+    {% endif %}
+    <article class="archive-item">
+      <div class="archive-item-body">
+        <div class="archive-item-header">
+          <a href="{{ post.url }}" class="archive-item-title">{{ post.title }}</a>
+          <time class="archive-item-date">{{ post.date | date: "%b %d" }}</time>
+        </div>
+        <p class="archive-item-excerpt">{{ post.content | strip_html | strip_newlines | truncate: 160 }}</p>
+      </div>
+    </article>
+  {% endfor %}
+  {% if site.posts.size > 0 %}</div>{% endif %}
+</div>
