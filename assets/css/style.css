@@ -782,12 +782,122 @@ a:hover {
 }
 
 /* ─── Syntax highlighting (rouge) ────────────────────────────────────── */
-.highlight .c  { color: var(--text-faint); font-style: italic; }
-.highlight .k  { color: var(--text); font-weight: 500; }
-.highlight .s  { color: var(--text-muted); }
-.highlight .n  { color: var(--text); }
-.highlight .o  { color: var(--text-muted); }
-.highlight .cm { color: var(--text-faint); font-style: italic; }
-.highlight .cp { color: var(--text-faint); }
-.highlight .c1 { color: var(--text-faint); font-style: italic; }
-.highlight .cs { color: var(--text-faint); font-style: italic; }
+
+/* Light mode token colors */
+:root {
+  --sh-comment:  #6e7781;
+  --sh-keyword:  #cf222e;
+  --sh-string:   #0a3069;
+  --sh-number:   #0550ae;
+  --sh-type:     #953800;
+  --sh-function: #6639ba;
+  --sh-operator: #24292f;
+  --sh-builtin:  #0550ae;
+  --sh-punct:    #24292f;
+  --sh-macro:    #953800;
+  --sh-lifetime: #116329;
+}
+
+/* Dark mode token colors */
+[data-theme="dark"] {
+  --sh-comment:  #768390;
+  --sh-keyword:  #ff7b72;
+  --sh-string:   #a5d6ff;
+  --sh-number:   #79c0ff;
+  --sh-type:     #ffa657;
+  --sh-function: #d2a8ff;
+  --sh-operator: #e6edf3;
+  --sh-builtin:  #79c0ff;
+  --sh-punct:    #e6edf3;
+  --sh-macro:    #ffa657;
+  --sh-lifetime: #56d364;
+}
+
+/* Comments */
+.highlight .c,
+.highlight .c1,
+.highlight .cm,
+.highlight .cs,
+.highlight .cp  { color: var(--sh-comment); font-style: italic; }
+
+/* Keywords */
+.highlight .k,
+.highlight .kd,
+.highlight .kn,
+.highlight .kp,
+.highlight .kr  { color: var(--sh-keyword); }
+
+/* Keyword types (e.g. bool, int) */
+.highlight .kt  { color: var(--sh-type); }
+
+/* Strings */
+.highlight .s,
+.highlight .s1,
+.highlight .s2,
+.highlight .sb,
+.highlight .sc,
+.highlight .sd,
+.highlight .se,
+.highlight .sh,
+.highlight .si,
+.highlight .sl,
+.highlight .ss,
+.highlight .sx  { color: var(--sh-string); }
+
+/* Numbers */
+.highlight .m,
+.highlight .mf,
+.highlight .mh,
+.highlight .mi,
+.highlight .mo,
+.highlight .il  { color: var(--sh-number); }
+
+/* Names / identifiers */
+.highlight .n,
+.highlight .nl,
+.highlight .nv,
+.highlight .vc,
+.highlight .vg,
+.highlight .vi  { color: var(--sh-operator); }
+
+/* Class / type names */
+.highlight .nc,
+.highlight .nn  { color: var(--sh-type); }
+
+/* Function / method names */
+.highlight .nf,
+.highlight .fm  { color: var(--sh-function); }
+
+/* Built-ins */
+.highlight .nb,
+.highlight .bp  { color: var(--sh-builtin); }
+
+/* Decorators / attributes */
+.highlight .nd,
+.highlight .na  { color: var(--sh-macro); }
+
+/* Constants */
+.highlight .no  { color: var(--sh-number); }
+
+/* Operators */
+.highlight .o,
+.highlight .ow  { color: var(--sh-keyword); }
+
+/* Punctuation */
+.highlight .p   { color: var(--sh-punct); }
+
+/* Macros (Rust's foo!) */
+.highlight .nv  { color: var(--sh-macro); }
+
+/* Lifetimes like 'a in Rust show as .nn or .l */
+.highlight .l   { color: var(--sh-lifetime); }
+
+/* Generic / tag names */
+.highlight .nt  { color: var(--sh-keyword); }
+
+/* Diff */
+.highlight .gd  { color: var(--sh-keyword); background: rgba(255,100,100,0.1); }
+.highlight .gi  { color: var(--sh-lifetime); background: rgba(100,255,100,0.1); }
+
+/* Error token */
+.highlight .err { color: var(--sh-keyword); }
