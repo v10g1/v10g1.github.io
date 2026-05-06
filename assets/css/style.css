@@ -18,8 +18,8 @@
   --font-serif:'Source Serif 4', Georgia, serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
-  --max-w: 680px;
-  --max-w-wide: 860px;
+  --max-w: 780px;
+  --max-w-wide: 900px;
 }
 
 [data-theme="dark"] {
@@ -497,29 +497,28 @@ a:hover {
 
 .post-content code {
   font-family: var(--font-mono);
-  font-size: 0.82em;
+  font-size: 0.8em;
   background: var(--code-bg);
-  padding: 0.1em 0.35em;
+  padding: 0.15em 0.4em;
   border-radius: 3px;
-  border: 1px solid var(--border);
 }
 
 .post-content pre {
   background: var(--code-bg);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 1.25rem 1.5rem;
+  border-left: 3px solid var(--border);
+  border-radius: 0 4px 4px 0;
+  padding: 1.1rem 1.4rem;
   overflow-x: auto;
   margin: 1.5rem 0;
-  font-size: 0.8rem;
-  line-height: 1.6;
+  font-size: 0.78rem;
+  line-height: 1.65;
 }
 
 .post-content pre code {
   background: none;
-  border: none;
   padding: 0;
   font-size: inherit;
+  border-radius: 0;
 }
 
 /* ─── Tables ──────────────────────────────────────────────────────────── */
