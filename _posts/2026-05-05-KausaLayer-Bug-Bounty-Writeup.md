@@ -4,7 +4,7 @@ date: 2026-05-05 00:00:00 +0530
 categories: [ZK, Bug-Bounties]
 tags: [zk, writeup, Bug-Bounty]
 math: true
-image: /assets/Catjo.png
+
 ---
 
 # Introduction
@@ -291,3 +291,14 @@ Here we can clearly see there is no verification that the funds that the user is
 >amount is now a public input in the ownership circuit. On-chain verification validates that the amount in the proof matches commitment.amount in the account. Decoupling is no longer possible — the proof must contain the exact amount that was committed.  
 
 >Circuit re-compiled, new verification key generated and deployed to devnet.  
+
+---
+
+Rest of the two findings (One High severity and One Medium ) are being excluded from this writeup, One of them was a design choice and other was Fixed within 2 hours of submission.
+
+
+# Final Thoughts
+This was my first ever contribution to open source projects, and I had a really good time overall. The team was very supportive. I had my doubts when I first messaged them, but It turned out great. 
+
+Throughout the whole submission process, The Protocol was very helpful, they cleared out my doubts and even pointed out the things I should focus on. After the submission I was rewarded appropriately
+Signing Off ✌️
