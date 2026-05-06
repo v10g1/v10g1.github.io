@@ -503,18 +503,46 @@ a:hover {
   border-radius: 3px;
 }
 
+/* Rouge wraps blocks in .highlight; also handle bare pre */
+.post-content .highlight,
 .post-content pre {
   background: var(--code-bg);
   border-left: 3px solid var(--border);
   border-radius: 0 4px 4px 0;
-  padding: 1.1rem 1.4rem;
+  padding: 1rem 1.25rem;
   overflow-x: auto;
   margin: 1.5rem 0;
   font-size: 0.78rem;
   line-height: 1.65;
 }
 
-.post-content pre code {
+/* Rouge table layout (line numbers on) — flatten it completely */
+.post-content .highlight table,
+.post-content .highlight tbody,
+.post-content .highlight tr { display: block; width: 100%; }
+
+/* Hide the gutter / line number column */
+.post-content .highlight .gutter,
+.post-content .highlight .gl,
+.post-content .highlight .lineno { display: none; }
+
+/* Code column takes full width */
+.post-content .highlight .code,
+.post-content .highlight td.code { display: block; padding: 0; width: 100%; }
+
+/* Inner pre inside .highlight — no extra box */
+.post-content .highlight pre {
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.post-content pre code,
+.post-content .highlight code {
   background: none;
   padding: 0;
   font-size: inherit;
