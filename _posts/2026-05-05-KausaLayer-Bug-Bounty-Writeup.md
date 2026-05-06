@@ -301,4 +301,5 @@ Rest of the two findings (One High severity and One Medium ) are being excluded 
 This was my first ever contribution to open source projects, and I had a really good time overall. The team was very supportive. I had my doubts when I first messaged them, but It turned out great. 
 
 Throughout the whole submission process, The Protocol was very helpful, they cleared out my doubts and even pointed out the things I should focus on. After the submission I was rewarded appropriately
+
 Signing Off ✌️
