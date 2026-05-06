@@ -642,12 +642,9 @@ a:hover {
 }
 
 .archive-item {
-  display: grid;
-  grid-template-columns: 4.5rem 1fr;
-  gap: 0 1.5rem;
-  padding: 0.7rem 0;
-  border-bottom: 1px solid transparent;
-  align-items: baseline;
+  display: block;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--border);
 }
 
 .archive-item--expanded .archive-item-thumb { display: none; }
@@ -655,7 +652,7 @@ a:hover {
 .archive-item-body {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.25rem;
 }
 
 .archive-item-header {
@@ -687,10 +684,10 @@ a:hover {
   font-size: 0.78rem;
   color: var(--text-faint);
   display: -webkit-box;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 /* Tag cloud */
